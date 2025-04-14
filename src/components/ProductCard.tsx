@@ -4,6 +4,7 @@ import { Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -32,7 +33,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div 
+    <Link 
+      to={`/product/${product.id}`}
       className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-md flex flex-col h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -115,7 +117,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
