@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -7,6 +6,13 @@ import { products } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import ProductCard from "@/components/ProductCard";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "@/components/ui/carousel";
 import { 
   Check, 
   ChevronRight, 
@@ -24,6 +30,7 @@ import {
   TabsList, 
   TabsTrigger 
 } from "@/components/ui/tabs";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,14 +42,6 @@ const ProductDetail = () => {
   // State management
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  
-  // Mock additional product images
-  const productImages = [
-    product.image,
-    "https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?q=80&w=3870&auto=format",
-    "https://images.unsplash.com/photo-1606220588513-b3aacb4d2f44?q=80&w=3870&auto=format",
-    "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?q=80&w=3774&auto=format",
-  ];
   
   // Product specifications
   const specifications = [
@@ -144,14 +143,14 @@ const ProductDetail = () => {
               <div className="space-y-4">
                 <div className="aspect-[4/3] overflow-hidden rounded-xl border border-gray-100">
                   <img 
-                    src={productImages[selectedImage]} 
-                    alt={product.name}
+                    src={product.images[selectedImage]} 
+                    alt={`${product.name} - view ${selectedImage + 1}`}
                     className="w-full h-full object-cover" 
                   />
                 </div>
                 
                 <div className="grid grid-cols-4 gap-4">
-                  {productImages.map((image, index) => (
+                  {product.images.map((image, index) => (
                     <div 
                       key={index}
                       className={`aspect-square cursor-pointer border rounded-md overflow-hidden transition-all ${
@@ -302,6 +301,7 @@ const ProductDetail = () => {
                 <TabsTrigger value="reviews">Reviews ({reviews.length})</TabsTrigger>
               </TabsList>
               
+              {/* Description Tab */}
               <TabsContent value="description" className="space-y-4">
                 <h2 className="text-2xl font-bold mb-4">Product Description</h2>
                 <p className="text-gray-600">
@@ -368,6 +368,7 @@ const ProductDetail = () => {
                 </div>
               </TabsContent>
               
+              {/* Specifications Tab */}
               <TabsContent value="specifications">
                 <h2 className="text-2xl font-bold mb-6">Technical Specifications</h2>
                 <div className="overflow-x-auto">
@@ -397,6 +398,7 @@ const ProductDetail = () => {
                 </div>
               </TabsContent>
               
+              {/* Reviews Tab */}
               <TabsContent value="reviews">
                 <div className="flex flex-col md:flex-row gap-8">
                   <div className="md:w-1/3">
@@ -484,7 +486,7 @@ const ProductDetail = () => {
           </div>
         </section>
 
-        {/* Similar Products */}
+        {/* Similar Products Section - Enhanced with carousel for better display */}
         <section className="py-16">
           <div className="container-custom">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
