@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Purplify - Modern E-Commerce Template
 
 ## Project info
 
