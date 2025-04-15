@@ -67,7 +67,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={`
-        fixed inset-0 bg-white z-50 transition-transform duration-300 ease-in-out
+        fixed inset-0 bg-white z-100 transition-transform duration-300 ease-in-out
         ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
         <div className="container-custom py-4 bg-white">
