@@ -68,7 +68,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Using Sheet component */}
           {isMobile && (
-            <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+            <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen} disa>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
@@ -122,7 +122,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
             <User size={18} className="text-white" />
@@ -130,7 +130,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
             <Heart size={18} className="text-white" />
@@ -150,7 +150,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
         <SheetClose asChild>
           <Button 
             variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10"
+            className="w-full border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
             Close Menu
