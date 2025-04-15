@@ -73,6 +73,7 @@ const Navbar = () => {
                 </Button>
               </DrawerTrigger>
               <DrawerContent className="bg-purple-dark border-none p-0 rounded-t-xl max-h-[90vh]">
+                <DrawerTitle></DrawerTitle>
                 <MobileNavigation onClose={() => setIsDrawerOpen(false)} />
               </DrawerContent>
             </Drawer>
