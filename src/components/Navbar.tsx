@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -83,7 +82,6 @@ const Navbar = () => {
   );
 };
 
-// Separate component for the mobile navigation content
 const MobileNavigation = () => {
   return (
     <div className="flex flex-col h-full">
@@ -137,7 +135,7 @@ const MobileNavigation = () => {
         <SheetClose asChild>
           <Button 
             variant="secondary"
-            className="border-white/20 text-white hover:bg-white/10"
+            className="border-white text-white hover:bg-white/20"
           >
             <X className="mr-2 h-4 w-4 text-white" /> Close Menu
           </Button>
@@ -147,7 +145,6 @@ const MobileNavigation = () => {
   );
 };
 
-// Reusable navigation link component for mobile menu
 const NavLink = ({ to, label }: { to: string; label: string }) => (
   <SheetClose asChild>
     <Link 
