@@ -66,7 +66,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Using Drawer component */}
           {isMobile && (
-            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+            <Drawer direction="right" open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
               <DrawerTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
@@ -85,7 +85,7 @@ const Navbar = () => {
 
 const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="flex flex-col h-full p-6 text-white">
+    <div className="flex flex-col h-full p-6 text-white overflow-y-auto">
       <div className="flex justify-between items-center mb-8">
         <Link to="/" className="flex items-center gap-2" onClick={onClose}>
           <span className="bg-purple-gradient p-2 rounded-md">
@@ -120,7 +120,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
             <User size={18} />
@@ -128,7 +128,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
             <Heart size={18} />
