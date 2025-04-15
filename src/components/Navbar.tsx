@@ -139,7 +139,7 @@ const MobileNavigation = () => {
             variant="secondary"
             className="border-white/20 text-white hover:bg-white/10"
           >
-            <X className="mr-2 h-4 w-4" /> Close Menu
+            <X className="mr-2 h-4 w-4 text-white" /> Close Menu
           </Button>
         </SheetClose>
       </div>
