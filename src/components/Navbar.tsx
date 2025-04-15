@@ -65,60 +65,61 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Improved readability with solid background */}
       <div className={`
-        fixed inset-0 bg-white z-100 transition-transform duration-300 ease-in-out
+        fixed inset-0 bg-purple-dark z-50 transition-transform duration-300 ease-in-out
         ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
-        <div className="container-custom py-4 bg-white">
+        <div className="container-custom py-4">
           <div className="flex items-center justify-between mb-8">
             <Link to="/" className="flex items-center gap-2">
               <span className="bg-purple-gradient p-2 rounded-md">
                 <ShoppingBag size={20} className="text-white" />
               </span>
-              <span className="font-bold text-xl text-purple-dark">Purplify</span>
+              <span className="font-bold text-xl text-white">Purplify</span>
             </Link>
             <Button 
               variant="ghost" 
               size="icon"
+              className="text-white hover:bg-white/10"
               onClick={() => setIsMenuOpen(false)}
             >
               <X size={20} />
             </Button>
           </div>
 
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-2">
             <Link 
               to="/" 
-              className="py-2 px-4 text-lg font-medium hover:bg-purple-light/10 rounded-md"
+              className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
               to="/shop" 
-              className="py-2 px-4 text-lg font-medium hover:bg-purple-light/10 rounded-md"
+              className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Shop
             </Link>
             <Link 
               to="/categories" 
-              className="py-2 px-4 text-lg font-medium hover:bg-purple-light/10 rounded-md"
+              className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Categories
             </Link>
             <Link 
               to="/about" 
-              className="py-2 px-4 text-lg font-medium hover:bg-purple-light/10 rounded-md"
+              className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
             <Link 
               to="/contact" 
-              className="py-2 px-4 text-lg font-medium hover:bg-purple-light/10 rounded-md"
+              className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
@@ -126,7 +127,7 @@ const Navbar = () => {
           </nav>
 
           <div className="mt-8 flex flex-col gap-4">
-            <Button variant="outline" className="flex items-center gap-2 justify-center">
+            <Button variant="outline" className="flex items-center gap-2 justify-center border-white text-white hover:bg-white/10 hover:text-white">
               <User size={18} />
               Account
             </Button>
