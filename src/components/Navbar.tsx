@@ -11,13 +11,8 @@ import {
   X
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger,
-  DrawerFooter
-} from "@/components/ui/drawer";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "./ui/dialog";
+
 
 const Navbar = () => {
   const isMobile = useIsMobile();
@@ -66,17 +61,17 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Using Drawer component */}
           {isMobile && (
-            <Drawer direction="right" open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-              <DrawerTrigger asChild>
+            <Dialog direction="right" open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <DialogTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
                 </Button>
-              </DrawerTrigger>
-              <DrawerContent className="bg-purple-dark border-none p-0 rounded-t-xl max-h-[90vh]">
-                <DrawerTitle></DrawerTitle>
+              </DialogTrigger>
+              <DialogContent className="bg-purple-dark border-none p-0 rounded-t-xl max-h-[90vh]">
+                <DialogTitle><div className="hidden"></div></DialogTitle>
                 <MobileNavigation onClose={() => setIsDrawerOpen(false)} />
-              </DrawerContent>
-            </Drawer>
+              </DialogContent>
+            </Dialog>
           )}
         </div>
       </div>
@@ -94,7 +89,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           </span>
           <span className="font-bold text-xl text-white">Purplify</span>
         </Link>
-        <DrawerClose asChild>
+        <DialogClose asChild>
           <Button 
             variant="ghost" 
             size="icon"
@@ -102,7 +97,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           >
             <X size={20} />
           </Button>
-        </DrawerClose>
+        </DialogClose>
       </div>
       
       <div className="flex-1">
@@ -145,8 +140,8 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
         </div>
       </div>
       
-      <DrawerFooter className="px-0 pt-6">
-        <DrawerClose asChild>
+      <DialogFooter className="px-0 pt-6">
+        <DialogClose asChild>
           <Button 
             variant="outline"
             className="w-full border-white/20 text-white hover:bg-white/10"
@@ -154,14 +149,14 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           >
             Close Menu
           </Button>
-        </DrawerClose>
-      </DrawerFooter>
+        </DialogClose>
+      </DialogFooter>
     </div>
   );
 };
 
 const NavLink = ({ to, label, onClick }: { to: string; label: string; onClick: () => void }) => (
-  <DrawerClose asChild>
+  <DialogClose asChild>
     <Link 
       to={to}
       className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
@@ -169,7 +164,7 @@ const NavLink = ({ to, label, onClick }: { to: string; label: string; onClick: (
     >
       {label}
     </Link>
-  </DrawerClose>
+  </DialogClose>
 );
 
 export default Navbar;
