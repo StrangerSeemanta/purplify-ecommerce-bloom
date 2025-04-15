@@ -136,7 +136,7 @@ const MobileNavigation = () => {
       <div className="pt-8 flex justify-center">
         <SheetClose asChild>
           <Button 
-            variant="solid"
+            variant="secondary"
             className="border-white/20 text-white hover:bg-white/10"
           >
             <X className="mr-2 h-4 w-4" /> Close Menu
