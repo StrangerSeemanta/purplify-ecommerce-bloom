@@ -68,7 +68,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button - Using Sheet component */}
           {isMobile && (
-            <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen} disa>
+            <Sheet disableClose open={isDrawerOpen} onOpenChange={setIsDrawerOpen} disa>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
