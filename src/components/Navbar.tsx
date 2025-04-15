@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,16 +12,16 @@ import {
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetClose
-} from "@/components/ui/sheet";
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerFooter
+} from "@/components/ui/drawer";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
@@ -63,18 +64,18 @@ const Navbar = () => {
             </span>
           </Button>
 
-          {/* Mobile Menu Button - Using Sheet component */}
+          {/* Mobile Menu Button - Using Drawer component */}
           {isMobile && (
-            <Sheet>
-              <SheetTrigger asChild>
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <DrawerTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
                 </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-purple-dark border-purple-dark w-[85%] sm:w-[385px] py-8 px-4">
-                <MobileNavigation />
-              </SheetContent>
-            </Sheet>
+              </DrawerTrigger>
+              <DrawerContent className="bg-purple-dark border-none p-0 rounded-t-xl max-h-[90vh]">
+                <MobileNavigation onClose={() => setIsDrawerOpen(false)} />
+              </DrawerContent>
+            </Drawer>
           )}
         </div>
       </div>
@@ -82,48 +83,60 @@ const Navbar = () => {
   );
 };
 
-const MobileNavigation = () => {
+const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
   return (
-    <div className="flex flex-col h-full">
-      <SheetHeader className="mb-4">
-        <Link to="/" className="flex items-center gap-2 mx-auto">
+    <div className="flex flex-col h-full p-6 text-white">
+      <div className="flex justify-between items-center mb-8">
+        <Link to="/" className="flex items-center gap-2" onClick={onClose}>
           <span className="bg-purple-gradient p-2 rounded-md">
             <ShoppingBag size={20} className="text-white" />
           </span>
-          <SheetTitle className="font-bold text-xl text-white">Purplify</SheetTitle>
+          <span className="font-bold text-xl text-white">Purplify</span>
         </Link>
-      </SheetHeader>
+        <DrawerClose asChild>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="text-white border border-white/20 hover:bg-white/10"
+          >
+            <X size={20} />
+          </Button>
+        </DrawerClose>
+      </div>
       
       <div className="flex-1">
         <nav className="mb-8">
-          <h3 className="text-white/70 text-sm font-semibold mb-2 pl-1">Navigation</h3>
-          <div className="flex flex-col gap-1">
-            <NavLink to="/" label="Home" />
-            <NavLink to="/shop" label="Shop" />
-            <NavLink to="/categories" label="Categories" />
-            <NavLink to="/about" label="About" />
-            <NavLink to="/contact" label="Contact" />
+          <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Navigation</h3>
+          <div className="flex flex-col gap-2">
+            <NavLink to="/" label="Home" onClick={onClose} />
+            <NavLink to="/shop" label="Shop" onClick={onClose} />
+            <NavLink to="/categories" label="Categories" onClick={onClose} />
+            <NavLink to="/about" label="About" onClick={onClose} />
+            <NavLink to="/contact" label="Contact" onClick={onClose} />
           </div>
         </nav>
 
-        <div className="space-y-2">
-          <h3 className="text-white/70 text-sm font-semibold mb-2 pl-1">Account</h3>
+        <div className="space-y-3 mt-6">
+          <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/10 text-black hover:bg-white/10 hover:text-white"
+            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            onClick={onClose}
           >
             <User size={18} />
             My Account
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/10 text-black hover:bg-white/10 hover:text-white"
+            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
+            onClick={onClose}
           >
             <Heart size={18} />
             Wishlist (2)
           </Button>
           <Button 
-            className="w-full justify-start gap-2.5 btn-gradient mt-2"
+            className="w-full justify-start gap-2.5 bg-purple-gradient hover:opacity-90 transition-all duration-300 mt-2"
+            onClick={onClose}
           >
             <ShoppingBag size={18} />
             View Cart (3)
@@ -131,29 +144,31 @@ const MobileNavigation = () => {
         </div>
       </div>
       
-      <div className="pt-8 flex justify-center">
-        <SheetClose asChild>
+      <DrawerFooter className="px-0 pt-6">
+        <DrawerClose asChild>
           <Button 
-            variant="secondary"
-            className="border-white text-white hover:bg-white/20"
+            variant="outline"
+            className="w-full border-white/20 text-white hover:bg-white/10"
+            onClick={onClose}
           >
-            <X className="mr-2 h-4 w-4 text-white" /> Close Menu
+            Close Menu
           </Button>
-        </SheetClose>
-      </div>
+        </DrawerClose>
+      </DrawerFooter>
     </div>
   );
 };
 
-const NavLink = ({ to, label }: { to: string; label: string }) => (
-  <SheetClose asChild>
+const NavLink = ({ to, label, onClick }: { to: string; label: string; onClick: () => void }) => (
+  <DrawerClose asChild>
     <Link 
       to={to}
       className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
+      onClick={onClick}
     >
       {label}
     </Link>
-  </SheetClose>
+  </DrawerClose>
 );
 
 export default Navbar;
