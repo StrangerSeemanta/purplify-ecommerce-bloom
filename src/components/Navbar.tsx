@@ -112,14 +112,14 @@ const MobileNavigation = () => {
           <h3 className="text-white/70 text-sm font-semibold mb-2 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/10 text-white hover:bg-white/10 hover:text-white"
+            className="w-full justify-start gap-2.5 border-white/10 text-black hover:bg-white/10 hover:text-white"
           >
             <User size={18} />
             My Account
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/10 text-white hover:bg-white/10 hover:text-white"
+            className="w-full justify-start gap-2.5 border-white/10 text-black hover:bg-white/10 hover:text-white"
           >
             <Heart size={18} />
             Wishlist (2)
