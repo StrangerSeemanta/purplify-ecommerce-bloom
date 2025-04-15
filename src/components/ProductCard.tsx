@@ -3,33 +3,29 @@ import { useState } from "react";
 import { Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag, Star } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { toast } = useToast();
   const [isHovered, setIsHovered] = useState(false);
+  const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart`,
-    });
+    addToCart(product);
   };
   
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toast({
-      title: "Added to wishlist",
-      description: `${product.name} has been added to your wishlist`,
-    });
+    addToWishlist(product);
   };
 
   return (
@@ -76,10 +72,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <Button 
               variant="outline"
               size="icon"
-              className="bg-white"
+              className={isInWishlist(product.id) 
+                ? "bg-white/90 text-red-500 border-red-200" 
+                : "bg-white/90"}
               onClick={handleWishlist}
             >
-              <Heart size={16} />
+              <Heart 
+                size={16} 
+                className={isInWishlist(product.id) ? "fill-red-500" : ""} 
+              />
             </Button>
           </div>
         </div>

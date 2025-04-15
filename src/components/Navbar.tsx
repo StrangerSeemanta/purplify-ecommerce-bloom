@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Heart,
   Menu,
-  Search,
   ShoppingBag,
   User,
   X
@@ -20,10 +19,18 @@ import {
   SheetTrigger,
   SheetClose
 } from "./ui/sheet";
+import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
+import CartSidebar from "./CartSidebar";
+import WishlistSidebar from "./WishlistSidebar";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+  const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
 
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
@@ -47,45 +54,98 @@ const Navbar = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <Button variant="ghost" size="icon" className="hidden sm:flex">
-            <Search size={20} />
-          </Button>
-          <Button variant="ghost" size="icon" className="hidden sm:flex">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="hidden sm:flex" 
+            as={Link}
+            to="/account"
+          >
             <User size={20} />
           </Button>
-          <Button variant="ghost" size="icon" className="hidden sm:flex relative">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="hidden sm:flex relative"
+            onClick={() => setIsWishlistOpen(true)}
+          >
             <Heart size={20} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-purple-gradient text-[10px] text-white flex items-center justify-center">
-              2
-            </span>
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-purple-gradient text-[10px] text-white flex items-center justify-center">
+                {wishlistCount}
+              </span>
+            )}
           </Button>
-          <Button variant="ghost" size="icon" className="relative">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="relative"
+            onClick={() => setIsCartOpen(true)}
+          >
             <ShoppingBag size={20} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-purple-gradient text-[10px] text-white flex items-center justify-center">
-              3
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-purple-gradient text-[10px] text-white flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Button>
 
           {/* Mobile Menu Button - Using Sheet component */}
           {isMobile && (
-            <Sheet disableClose open={isDrawerOpen} onOpenChange={setIsDrawerOpen} disa>
+            <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
                 </Button>
               </SheetTrigger>
               <SheetContent className="bg-purple-dark border-none p-0 rounded-l-xl w-[300px] max-h-screen overflow-y-auto" side="right">
-                <MobileNavigation onClose={() => setIsDrawerOpen(false)} />
+                <MobileNavigation 
+                  onClose={() => setIsDrawerOpen(false)} 
+                  onOpenCart={() => {
+                    setIsDrawerOpen(false);
+                    setIsCartOpen(true);
+                  }}
+                  onOpenWishlist={() => {
+                    setIsDrawerOpen(false);
+                    setIsWishlistOpen(true);
+                  }}
+                  cartCount={cartCount}
+                  wishlistCount={wishlistCount}
+                />
               </SheetContent>
             </Sheet>
           )}
+          
+          {/* Cart Sidebar */}
+          <CartSidebar 
+            open={isCartOpen} 
+            onClose={() => setIsCartOpen(false)} 
+          />
+          
+          {/* Wishlist Sidebar */}
+          <WishlistSidebar 
+            open={isWishlistOpen}
+            onClose={() => setIsWishlistOpen(false)}
+          />
         </div>
       </div>
     </header>
   );
 };
 
-const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
+const MobileNavigation = ({ 
+  onClose, 
+  onOpenCart, 
+  onOpenWishlist,
+  cartCount,
+  wishlistCount
+}: { 
+  onClose: () => void;
+  onOpenCart: () => void;
+  onOpenWishlist: () => void;
+  cartCount: number;
+  wishlistCount: number;
+}) => {
   return (
     <div className="flex flex-col h-full p-6 text-white overflow-y-auto">
       <div className="flex justify-between items-center mb-8">
@@ -97,9 +157,9 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
         </Link>
         <SheetClose asChild>
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="icon"
-            className="text-white border border-white hover:bg-white/10"
+            className="text-white border border-white/20 hover:bg-white/10 hover:text-white"
           >
             <X size={20} className="text-white" />
           </Button>
@@ -122,26 +182,39 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10 hover:text-white"
+            className="w-full justify-start gap-2.5 border-white/20 hover:bg-white/10 hover:text-white text-white"
             onClick={onClose}
+            asChild
           >
-            <User size={18} />
-            <span>My Account</span>
+            <Link to="/account">
+              <User size={18} />
+              <span>My Account</span>
+            </Link>
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
-            onClick={onClose}
+            className="w-full justify-start gap-2.5 border-white/20 hover:bg-white/10 text-white"
+            onClick={onOpenWishlist}
           >
             <Heart size={18} />
-            <span>Wishlist (2)</span>
+            <span className="flex-1 text-left">Wishlist</span>
+            {wishlistCount > 0 && (
+              <span className="bg-white/20 text-white px-2 py-0.5 text-xs rounded-full">
+                {wishlistCount}
+              </span>
+            )}
           </Button>
           <Button 
             className="w-full justify-start gap-2.5 bg-purple-gradient hover:opacity-90 transition-all duration-300 mt-2"
-            onClick={onClose}
+            onClick={onOpenCart}
           >
             <ShoppingBag size={18} />
-            View Cart (3)
+            <span className="flex-1 text-left">View Cart</span>
+            {cartCount > 0 && (
+              <span className="bg-white/20 text-white px-2 py-0.5 text-xs rounded-full">
+                {cartCount}
+              </span>
+            )}
           </Button>
         </div>
       </div>
@@ -150,7 +223,7 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
         <SheetClose asChild>
           <Button 
             variant="outline"
-            className="w-full border-white/20 text-black hover:bg-white/10"
+            className="w-full border-white/20 text-white hover:bg-white/10"
             onClick={onClose}
           >
             Close Menu
