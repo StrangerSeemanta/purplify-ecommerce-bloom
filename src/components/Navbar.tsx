@@ -11,8 +11,15 @@ import {
   X
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "./ui/dialog";
-
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose
+} from "./ui/sheet";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
@@ -59,19 +66,18 @@ const Navbar = () => {
             </span>
           </Button>
 
-          {/* Mobile Menu Button - Using Drawer component */}
+          {/* Mobile Menu Button - Using Sheet component */}
           {isMobile && (
-            <Dialog direction="right" open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-              <DialogTrigger asChild>
+            <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu size={20} />
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="bg-purple-dark border-none p-0 rounded-t-xl max-h-[90vh]">
-                <DialogTitle><div className="hidden"></div></DialogTitle>
+              </SheetTrigger>
+              <SheetContent className="bg-purple-dark border-none p-0 rounded-l-xl w-[300px] max-h-screen overflow-y-auto" side="right">
                 <MobileNavigation onClose={() => setIsDrawerOpen(false)} />
-              </DialogContent>
-            </Dialog>
+              </SheetContent>
+            </Sheet>
           )}
         </div>
       </div>
@@ -89,15 +95,15 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           </span>
           <span className="font-bold text-xl text-white">Purplify</span>
         </Link>
-        <DialogClose asChild>
+        <SheetClose asChild>
           <Button 
             variant="ghost" 
             size="icon"
-            className="text-white border border-white/20 hover:bg-white/10"
+            className="text-white border border-white hover:bg-white/10"
           >
-            <X size={20} />
+            <X size={20} className="text-white" />
           </Button>
-        </DialogClose>
+        </SheetClose>
       </div>
       
       <div className="flex-1">
@@ -116,19 +122,19 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
             onClick={onClose}
           >
-            <User size={18} />
-            My Account
+            <User size={18} className="text-white" />
+            <span className="text-white">My Account</span>
           </Button>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-white hover:bg-white/10"
             onClick={onClose}
           >
-            <Heart size={18} />
-            Wishlist (2)
+            <Heart size={18} className="text-white" />
+            <span className="text-white">Wishlist (2)</span>
           </Button>
           <Button 
             className="w-full justify-start gap-2.5 bg-purple-gradient hover:opacity-90 transition-all duration-300 mt-2"
@@ -140,8 +146,8 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
         </div>
       </div>
       
-      <DialogFooter className="px-0 pt-6">
-        <DialogClose asChild>
+      <SheetFooter className="px-0 pt-6">
+        <SheetClose asChild>
           <Button 
             variant="outline"
             className="w-full border-white/20 text-white hover:bg-white/10"
@@ -149,14 +155,14 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           >
             Close Menu
           </Button>
-        </DialogClose>
-      </DialogFooter>
+        </SheetClose>
+      </SheetFooter>
     </div>
   );
 };
 
 const NavLink = ({ to, label, onClick }: { to: string; label: string; onClick: () => void }) => (
-  <DialogClose asChild>
+  <SheetClose asChild>
     <Link 
       to={to}
       className="py-3 px-4 text-lg font-medium text-white hover:bg-white/10 rounded-md transition-colors"
@@ -164,7 +170,7 @@ const NavLink = ({ to, label, onClick }: { to: string; label: string; onClick: (
     >
       {label}
     </Link>
-  </DialogClose>
+  </SheetClose>
 );
 
 export default Navbar;
