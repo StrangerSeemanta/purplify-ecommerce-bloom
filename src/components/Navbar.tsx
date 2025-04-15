@@ -70,7 +70,7 @@ const Navbar = () => {
         fixed inset-0 bg-white z-50 transition-transform duration-300 ease-in-out
         ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
-        <div className="container-custom py-4">
+        <div className="container-custom py-4 bg-white">
           <div className="flex items-center justify-between mb-8">
             <Link to="/" className="flex items-center gap-2">
               <span className="bg-purple-gradient p-2 rounded-md">
