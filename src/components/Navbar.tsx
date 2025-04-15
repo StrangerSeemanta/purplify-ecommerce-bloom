@@ -122,19 +122,19 @@ const MobileNavigation = ({ onClose }: { onClose: () => void }) => {
           <h3 className="text-white/70 text-sm font-semibold mb-4 pl-1">Account</h3>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
+            className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10 hover:text-white"
             onClick={onClose}
           >
-            <User size={18} className="text-white" />
-            <span className="text-white">My Account</span>
+            <User size={18} />
+            <span>My Account</span>
           </Button>
           <Button 
             variant="outline" 
             className="w-full justify-start gap-2.5 border-white/20 text-black hover:bg-white/10"
             onClick={onClose}
           >
-            <Heart size={18} className="text-white" />
-            <span className="text-white">Wishlist (2)</span>
+            <Heart size={18} />
+            <span>Wishlist (2)</span>
           </Button>
           <Button 
             className="w-full justify-start gap-2.5 bg-purple-gradient hover:opacity-90 transition-all duration-300 mt-2"
